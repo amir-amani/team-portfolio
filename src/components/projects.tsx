@@ -1,11 +1,12 @@
 import Image from "next/image";
+import { withBasePath } from "@/lib/paths";
 import Link from "@/components/link";
 import type { Project } from "@/lib/content";
 import { Arrow } from "./ui";
 
 // These are deliberately non-interactive interface studies, not live client sites.
 export function ProjectPreview({ project }: { project: Project }) {
-  if (project.image) return <div className="project-preview"><Image src={project.image} alt={project.imageAlt} width={960} height={640} sizes="(max-width: 720px) 100vw, 50vw" className="project-image" /></div>;
+  if (project.image) return <div className="project-preview"><Image src={withBasePath(project.image)} alt={project.imageAlt} width={960} height={640} sizes="(max-width: 720px) 100vw, 50vw" className="project-image" /></div>;
   return <div className={`project-preview preview-${project.preview}`} role="img" aria-label={project.imageAlt}>
     <div className="preview-browser" aria-hidden="true"><div className="preview-toolbar"><span>● ● ●</span><span>{project.label.toLowerCase()} / {project.preview}</span><span>↗</span></div>
       {project.preview === "coffee" && <div className="coffee-ui"><div className="mini-nav"><b>Sunday Coffee<span>®</span></b><span>Menu &nbsp; Visit us</span></div><div className="coffee-main"><span className="mini-label">YOUR NEIGHBOURHOOD COFFEE STOP</span><strong>Good coffee.<br /><em>No hurry.</em></strong><div className="coffee-bottom"><span className="mini-button">Explore the menu ↗</span><span>Drop in. Stay a while.<br />Coffee, pastries & good company.</span></div></div><div className="coffee-strip"><span>The menu</span><span>Opening hours</span><span>Find your way here ↗</span></div></div>}

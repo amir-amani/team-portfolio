@@ -33,7 +33,8 @@ All values below are public build-time values, not secrets. Changes require a re
 
 | Value | Location | Before public launch |
 | --- | --- | --- |
-| Domain | `NEXT_PUBLIC_SITE_URL` in `.env.local` or deployment environment | Replace `https://example.com` with your actual HTTPS origin. Without this variable the private Sites preview origin is used. This feeds canonical, OG, sitemap, robots, and schema URLs. |
+| Site URL | `NEXT_PUBLIC_SITE_URL` in `.env.local` or deployment environment | Full public URL including any repository path. Defaults to `https://amir-amani.github.io/team-portfolio`. The Pages workflow obtains it from GitHub, including custom domains. This feeds canonical, OG, sitemap, robots, and schema URLs. |
+| Path prefix | `NEXT_PUBLIC_BASE_PATH` | Empty locally or on a root domain; `/team-portfolio` on this repository's project Pages. The Pages workflow configures this automatically. |
 | Email | `NEXT_PUBLIC_CONTACT_EMAIL` | Replace `hello@example.com` with an inbox you control. Until then the Contact page visibly states that the email is a placeholder. The placeholder email is omitted from structured data. |
 | GitHub | `NEXT_PUBLIC_GITHUB_URL` | Optional verified profile URL. Empty means no link is rendered. |
 | LinkedIn | `NEXT_PUBLIC_LINKEDIN_URL` | Optional verified profile URL. Empty means no link is rendered. |
@@ -74,6 +75,32 @@ Lighthouse is a lab measurement, not a guarantee of real-user Core Web Vitals. R
 
 ## Deploy
 
+### GitHub Pages (this repository)
+
+The repository source is a Next.js application, not the built website. Publishing the root directly with GitHub's default Jekyll/branch mode can render this README. The included `.github/workflows/deploy-pages.yml` instead installs dependencies, checks the code, builds Next.js, verifies its output, and publishes **only `out/`**.
+
+1. In [repository Settings → Pages](https://github.com/amir-amani/team-portfolio/settings/pages), under **Build and deployment → Source**, select **GitHub Actions**, not **Deploy from a branch**.
+2. Push the updated files to `main`, including the hidden `.github/workflows/deploy-pages.yml` file. The workflow runs automatically. If the files were pushed before changing the Pages setting, open **Actions → Deploy portfolio to GitHub Pages → Run workflow → main**.
+3. Wait for both **build** and **deploy** jobs to succeed. Visit [the portfolio](https://amir-amani.github.io/team-portfolio/), not the repository's Code page. A first publish can take a few minutes; refresh once deployment finishes.
+4. For contact/social details, add repository **Settings → Secrets and variables → Actions → Variables** named `NEXT_PUBLIC_CONTACT_EMAIL`, `NEXT_PUBLIC_GITHUB_URL`, and `NEXT_PUBLIC_LINKEDIN_URL`. Then rerun the workflow. Do not upload `.env.local`; these values are public and need no secrets. Email remains visibly marked as a placeholder until configured.
+
+The workflow reads the URL and base path from `actions/configure-pages`, so repository renames, user Pages, and a custom domain configured in Settings → Pages are supported on the next build. `basePath` fixes Next's CSS/JS URLs; the shared native-link and image helpers prefix internal links and local images. `public/.nojekyll` is copied into the export to protect `_next` assets on static hosts that invoke Jekyll. Do not set an additional `assetPrefix` or commit `node_modules`, `.next`, or `out` to `main`.
+
+To reproduce this repository's Pages build in PowerShell:
+
+```powershell
+$env:NEXT_PUBLIC_BASE_PATH='/team-portfolio'
+$env:NEXT_PUBLIC_SITE_URL='https://amir-amani.github.io/team-portfolio'
+npm.cmd run test:paths
+npm.cmd run check
+npm.cmd run preview
+# Open http://127.0.0.1:3000/team-portfolio/
+```
+
+For normal local development, leave `NEXT_PUBLIC_BASE_PATH` empty. An account-wide `https://amir-amani.github.io/robots.txt` is outside a project repository's control: this site's generated file is at `/team-portfolio/robots.txt`. Submit the full `/team-portfolio/sitemap.xml` URL in Search Console; an account-wide robots policy, if needed, belongs in the root user Pages repository.
+
+References: [GitHub Pages custom workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages), [Next.js basePath](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath).
+
 ### Static host (Cloudflare Pages, Netlify, or equivalent)
 
 1. Set the public environment values above in the build environment.
@@ -89,7 +116,7 @@ Import this directory as a Next.js project. Set the environment values, use `npm
 
 ### Private Sites preview
 
-`.openai/hosting.json` declares `out` as the static output. The supplied Sites origin is a private review destination until access is deliberately changed. Private access means search engines cannot index the preview, even though the exported HTML has production-ready SEO metadata. Set your final domain and email and rebuild before a public launch.
+`.openai/hosting.json` declares `out` as the static output. The earlier Sites origin is a separate private review destination. To build for it again, set `NEXT_PUBLIC_BASE_PATH` to an empty value and `NEXT_PUBLIC_SITE_URL` to that full origin. GitHub Pages ignores `.openai/hosting.json`. This GitHub Pages update does not republish the separate private Sites preview.
 
 ## Accessibility and content decisions
 

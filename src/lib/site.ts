@@ -10,7 +10,7 @@ const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@example.com";
 if (!/^[^\s@?&#]+@[^\s@?&#]+\.[^\s@?&#]+$/.test(email)) throw new Error("Configure a valid contact email address.");
 export const site = {
   name: "Amir Amani",
-  url: publicUrl(process.env.NEXT_PUBLIC_SITE_URL, "https://amir-amani-portfolio.amani-1381-amir.chatgpt.site"),
+  url: publicUrl(process.env.NEXT_PUBLIC_SITE_URL, "https://amir-amani.github.io/team-portfolio"),
   email,
   emailConfigured: email !== "hello@example.com",
   socials: [

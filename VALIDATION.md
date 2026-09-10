@@ -1,5 +1,14 @@
 # Final validation — 10 September 2026
 
+## GitHub Pages compatibility update
+
+- Added an official Pages Actions build/upload/deploy workflow for `main` and manual runs. It publishes `out/`, not the README/source tree.
+- Added a configurable build-time base path, prefixed native navigation and local images, and a `.nojekyll` export marker.
+- GitHub supplies the full site URL and path prefix, keeping canonical, social, sitemap, and structured-data URLs aligned with the actual Pages destination.
+- Added regression checks for prefixed navigation, anchors, query strings, images, external links, and root deployments.
+- Production export checks now verify both link and asset paths, the `.nojekyll` marker, and the deployment-specific canonical/social/sitemap URLs.
+- Verified the `/team-portfolio` production build, strict TypeScript, ESLint, path regression checks, and all five exported pages. Original Lighthouse results below refer to the initial root deployment, not a fresh GitHub-hosted measurement.
+
 ## Completed checks
 
 - [x] Five working, statically exported Next.js App Router pages.
