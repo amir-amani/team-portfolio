@@ -1,0 +1,15 @@
+import Link from "@/components/link";
+import { Button, Eyebrow, Arrow } from "@/components/ui";
+import { ContactCTA, Process, ServiceGrid, Sprint } from "@/components/sections";
+import { ProjectCard } from "@/components/projects";
+import { projects } from "@/lib/content";
+import { pageMetadata } from "@/lib/site";
+export const metadata = pageMetadata("Web Developer for Small Businesses", "Practical websites and focused improvements by Amir Amani. Mobile website fixes, landing pages, booking flows, and small web applications. Start with one problem.", "/");
+export default function Home() {
+  return <><section className="container hero"><div className="hero-copy"><Eyebrow>Independent developer. Small, capable team.</Eyebrow><h1>Practical websites.<br />Useful web tools.<br /><span className="accent">A better next step.</span></h1><p>I help small businesses and founders improve the parts of their online presence that customers actually use—mobile pages, booking flows, inquiry forms, landing pages, and lightweight web applications.</p><div className="button-row"><Button href="/contact/">Ask for a tailored example</Button><Link className="text-link" href="/services/">See what I can help with <Arrow /></Link></div><p className="hero-note">A focused improvement can be a good place to start.</p></div><aside className="hero-note-card" aria-label="Website Rescue Sprint introduction"><div className="note-top"><span>SMALL SCOPE. REAL PURPOSE.</span><Arrow diagonal /></div><div className="note-middle"><span className="note-label">The Website</span><p>Rescue<br /><em>Sprint.</em></p><span className="note-rule" /></div><p>One part of your website.<br />A clear plan to make it better.</p><Link href="/services/#rescue">Take a closer look <Arrow /></Link><span className="note-number" aria-hidden="true">01 / A FOCUSED START</span></aside></section>
+  <section className="container personal-strip"><div className="avatar-mark" aria-hidden="true">AA<span /></div><p><strong>Hi, I’m Amir.</strong> I lead the technical work and stay your direct point of contact. When a project benefits from extra design, research, or outreach support, I work with two collaborators.</p><Link className="text-link" href="/about/">A little about me <Arrow diagonal /></Link></section>
+  <section className="container section"><div className="section-heading"><div><Eyebrow>What I can help with</Eyebrow><h2>Good work starts<br />with a specific problem.</h2></div><p>A few ways I can help make your website or working day a little easier.</p></div><ServiceGrid /></section>
+  <Sprint />
+  <section className="container section"><div className="section-heading"><div><Eyebrow>Selected ideas, honestly labeled</Eyebrow><h2>What better could look like.</h2></div><Link className="text-link" href="/work/">View all examples <Arrow /></Link></div><p className="section-note">Self-initiated concepts and demos. These show an approach, not paid client work or measured results.</p><div className="project-grid">{projects.slice(0, 2).map(project => <ProjectCard key={project.slug} project={project} />)}</div></section>
+  <Process /><ContactCTA /></>;
+}

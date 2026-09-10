@@ -1,0 +1,29 @@
+export const services = [
+  { id: "rescue", icon: "↗", title: "Website Rescue Sprint", text: "One troublesome part of your website, a focused scope, and a practical fix.", detail: "Mobile layout fixes, clearer page structure, or a frustrating customer journey. We agree on deliverables and a short schedule before work begins.", deliverable: "A defined improvement, tested on the agreed devices and browsers." },
+  { id: "business-website", icon: "⌂", title: "Small Business Website", text: "A clear, useful home for your services, your story, and the next step.", detail: "A small custom website that helps people understand what you offer and get in touch. Content, page count, and ongoing ownership are agreed up front.", deliverable: "A responsive website with essential SEO and a clear handover." },
+  { id: "landing-page", icon: "↳", title: "Landing Page Improvement", text: "Give one offer a clearer message and a more obvious call to action.", detail: "Improve the hierarchy, mobile experience, and inquiry path on an existing page, or build a focused landing page for one service.", deliverable: "One purposeful page with readable content and a tested contact path." },
+  { id: "booking", icon: "□", title: "Booking and Inquiry Flows", text: "Make it easier for a customer to ask, book, or take the next step.", detail: "Appointment requests, useful inquiry forms, and connections to your existing booking tool. Request and confirmation states stay clear.", deliverable: "A tested flow with validation, clear feedback, and agreed delivery of inquiries." },
+  { id: "integration", icon: "⤴", title: "Frontend and API Integration", text: "Connect the interface your customers use to the service behind it.", detail: "Integrate an existing API or service into a usable frontend, including loading, empty, and error states. Access and provider limits are reviewed first.", deliverable: "A working integration, documented setup, and clear failure handling." },
+  { id: "web-apps", icon: "+", title: "Lightweight Web Applications", text: "A small, focused tool for the work that a spreadsheet no longer covers.", detail: "A practical web application for an agreed workflow, such as tracking requests or reviewing shipping information. We start with the smallest useful version.", deliverable: "A usable tool for a defined workflow, with source code and handover notes." },
+] as const;
+
+export type Project = {
+  slug: string; title: string; label: "Concept" | "Demo"; category: string;
+  problem: string; improvement: string; technologies: string[]; outcome: string;
+  preview: "coffee" | "barber" | "service" | "shipping";
+  image: string | null; imageAlt: string; url: string | null;
+};
+// PLACEHOLDERS: replace null image with a local optimized image path, and null url
+// with a verified live project URL. Keep honest labels until real work is documented.
+export const projects: Project[] = [
+  { slug: "coffee-shop", title: "A better first stop for coffee.", label: "Concept", category: "Coffee shop website", preview: "coffee", problem: "A visitor needs the menu, opening hours, and location without searching through social posts.", improvement: "Put the essentials together on a calm, readable page with a clear route to the shop.", technologies: ["Next.js", "TypeScript", "Tailwind CSS"], outcome: "Help someone decide what to order and how to visit. No measured client results are claimed.", image: null, imageAlt: "Coffee shop concept with a visible menu, location, and opening hours", url: null },
+  { slug: "barbershop", title: "Less back-and-forth. A clearer booking.", label: "Concept", category: "Barbershop booking flow", preview: "barber", problem: "An appointment request can leave both the customer and the shop unsure what happens next.", improvement: "Make service selection and preferred times simple, then explain that the shop confirms the appointment.", technologies: ["React", "TypeScript", "Form validation"], outcome: "Create clearer appointment requests without suggesting an unconfirmed slot is booked.", image: null, imageAlt: "Barbershop concept showing service selection and an appointment-request step", url: null },
+  { slug: "local-service", title: "The right details. The next step.", label: "Concept", category: "Local service landing page", preview: "service", problem: "A potential customer cannot quickly tell whether a service covers their needs or location.", improvement: "Explain the service, coverage area, and what to include in a useful inquiry.", technologies: ["Next.js", "Semantic HTML", "Tailwind CSS"], outcome: "Help visitors send relevant inquiries with enough context for a useful reply.", image: null, imageAlt: "Local service concept with clear service information and an inquiry prompt", url: null },
+  { slug: "shipping-tool", title: "One small tool. A clearer working day.", label: "Demo", category: "Lightweight shipping application", preview: "shipping", problem: "Scattered shipment references make a routine status check harder than it needs to be.", improvement: "Explore a compact, readable list of shipments with clear statuses and a place for the next action.", technologies: ["React", "TypeScript", "Sample data"], outcome: "Illustrate a focused operational view. The preview uses fictional sample data and has no live tracking connection.", image: null, imageAlt: "Shipping interface demo with fictional shipment references and statuses", url: null },
+];
+export const processSteps = [
+  ["Tell me what feels difficult or outdated.", "Send a page, a rough idea, or the step where customers get stuck."],
+  ["I review the specific problem.", "I look at the current experience and ask the questions needed to understand it."],
+  ["I propose a focused scope.", "We agree on deliverables, timing, cost, and what is outside the scope."],
+  ["We build and test the improvement.", "I lead the work, check the agreed flow, and hand it over clearly."],
+] as const;
